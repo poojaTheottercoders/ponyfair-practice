@@ -1,0 +1,131 @@
+<!--<p>feedback works!</p>-->
+
+<div class="container">
+  <div class="row mb-5">
+    <div class="col text-center">
+      <h2 style="margin-top: 10%"><b><span style="color: white">Feedback</span></b></h2>
+    </div>
+  </div>
+
+  <div class="jumbotron" style="background-color: #c1eeff; ">
+    <form [formGroup]="feedBack" (ngSubmit)="submit()"  style="width: 100%; margin-left: 10%">
+      <div class="form">
+        <div class="form-group">
+          <label class="mx-2"><h5><span style="color: white">Name*</span> </h5></label><br>
+          <input type="text" id="firstname" class="mx-2 p-1"
+                 placeholder="First Name" formControlName="fName" style="width: 35%;"
+                 [value]="fName?.value | titlecase">
+
+          <input type="text" id="lastName" class="mx-3 p-1"
+                 placeholder="Last Name" formControlName="lName" style="width: 35%"
+                 [value]="lName.value | titlecase" >
+
+        </div>
+      </div>
+<!--      error-block-->
+      <div class="row">
+        <div *ngIf="fName?.invalid && (fName?.dirty || fName?.touched)"
+             class="alert alert-danger">
+
+          <div *ngIf="fName?.errors.required">
+            First Name is required.
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div *ngIf="lName?.invalid && (lName?.dirty || lName?.touched)"
+             class="alert alert-danger">
+
+          <div *ngIf="lName?.errors.required">
+            Last Name is required.
+          </div>
+        </div>
+      </div>
+
+      <!--services-->
+      <div class="row">
+        <div class="form-group">
+          <label class="mx-3"><h5><span style="color: white">Have you experienced our services?*</span></h5></label>
+          <select class="form-control mx-3" id="services" formControlName="serviceName" style="width: 100%;">
+            <option *ngFor="let service of services" [value]="service.id">
+              {{service?.name}}
+            </option>
+          </select>
+        </div>
+      </div>
+
+      <!--error block service-->
+      <div class="row">
+        <div *ngIf="feedBack.controls.serviceName.invalid && (feedBack.controls.serviceName.touched)"
+             class="alert alert-danger">
+          <div *ngIf="feedBack.controls.serviceName.errors.required">
+            service Name is required.
+          </div>
+        </div>
+      </div>
+
+
+      <!--how to rate us-->
+      <h5 style="color: white;">How do you rate us?</h5>
+      <div class="row">
+        <mat-radio-group style="color: white;"
+                         aria-labelledby="example-radio-group-label"
+                         class="example-radio-group mx-3" >
+          <mat-radio-button class="example-radio-button"
+                            *ngFor="let option of options"
+                            [value]="option">
+                             {{option}}
+          </mat-radio-button>
+        </mat-radio-group>
+      </div>
+
+
+
+      <!--give rating-->
+      <div class="row">
+        <div class="form-group">
+          <label class="mx-3"><h5><span style="color: white">Give us Rating(1-10) (lowest-highest)</span></h5></label><br>
+          <input class="mx-3" formControlName="giveRate"
+                 (keypress)="numberOnly($event)"
+                 [value]="giveRate.value | titlecase" style="width: 100%;" >
+        </div>
+      </div>
+      <!--error block rating-->
+      <div class="row">
+        <div *ngIf="giveRate?.invalid && (giveRate?.dirty || giveRate?.touched)"
+             class="alert alert-danger">
+
+          <div *ngIf="giveRate?.errors.required">
+            please a Give Us Rating.
+          </div>
+        </div>
+      </div>
+
+      <!--Review & suggestion-->
+      <div class="row">
+        <div class="form-group">
+          <label class="mx-3"><h5><span style="color: white">Review & Suggestion*</span></h5></label><br>
+          <textarea name="review" class="mx-3 p-1" id="review" rows="4" cols="110"
+                    formControlName="review" placeholder="Write a review here...." style="width: 75%">
+          </textarea>
+        </div>
+      </div>
+      <!--error block review-->
+      <div class="row">
+        <div *ngIf="feedBack.controls.review.invalid && (feedBack.controls.review.dirty || feedBack.controls.review.touched)"
+             class="alert alert-danger">
+          <div *ngIf="feedBack.controls.review.errors.required">
+            Please give a review.
+          </div>
+        </div>
+      </div>
+
+
+      <button type="submit"  class="btn btn-outline-primary" [disabled]="!feedBack.valid" style="margin-left: 30%">
+        Submit
+      </button>
+
+    </form>
+  </div>
+</div>
+

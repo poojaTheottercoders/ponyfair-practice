@@ -1,0 +1,113 @@
+
+<div class="container">
+  <div class="row mb-5">
+    <div class="col text-center">
+      <h2 style="margin-top: 10%"><span style="color: white">Inquiry</span></h2>
+    </div>
+  </div>
+
+  <div class="jumbotron" style="background-color: #c1eeff; width: 100%">
+    <form [formGroup]="inputForm" (ngSubmit)="submit()" class="align-items-center" style="width: 100%; margin-left: 10%">
+      <div class="form">
+        <div class="form-group">
+          <label class="mx-2"><h4><span style="color: white">Name*</span></h4></label><br>
+          <input type="text" id="firstName" class="mx-2 p-1"
+                 placeholder="First Name" formControlName="fName" style="width: 35%;"
+                 [value]="fName?.value | titlecase" >
+          <input type="text" id="lastName" class="mx-3 p-1"
+                 placeholder="Last Name" formControlName="lName" style="width: 35%;"
+                 [value]="lName?.value | titlecase">
+        </div>
+      </div>
+      <!--error block name-->
+      <div class="row">
+        <div *ngIf="fName?.invalid && (fName?.dirty || fName?.touched)"
+             class="alert alert-danger">
+
+          <div *ngIf="fName?.errors.required">
+            First Name is required.
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div *ngIf="lName?.invalid && (lName?.dirty || lName?.touched)"
+             class="alert alert-danger">
+
+          <div *ngIf="lName?.errors.required">
+            Last Name is required.
+          </div>
+        </div>
+      </div>
+
+
+      <!--contact number-->
+      <div class="row">
+        <div class="form-group">
+          <label class="mx-3"><h4><span style="color: white">Contact No.*</span></h4></label><br>
+          <input type="text" class="mx-3 p-1"
+                 placeholder="Contact No" formControlName="contactNo" style="width: 150%"
+                 (keypress)="numberOnly($event)"
+                 [value]="contactNo?.value" >
+        </div>
+      </div>
+
+      <!--error block contact-->
+      <div class="row">
+        <div *ngIf="contactNo?.invalid && (contactNo?.dirty || contactNo?.touched)"
+             class="alert alert-danger">
+
+          <div *ngIf="contactNo?.errors.required">
+            Contact Number is required.
+          </div>
+        </div>
+      </div>
+
+      <!--email-->
+      <div class="row">
+        <div class="form-group">
+          <label class="mx-3"><h4><span style="color: white">Email*</span></h4></label><br>
+          <input type="text" class="mx-3 p-1"
+                 placeholder="example@gmail.com" formControlName="email" style="width: 150%"
+                 [value]="email?.value" >
+        </div>
+      </div>
+      <!--error block email-->
+      <div class="row">
+        <div *ngIf="email?.invalid && (email?.dirty || email?.touched)"
+             class="alert alert-danger">
+
+          <div *ngIf="email?.errors.required">
+            Email is required.
+          </div>
+          <div *ngIf="email?.errors.email">
+            Please Enter Valid Email Address!!!
+          </div>
+        </div>
+      </div>
+
+      <!--inquiry-->
+      <div class="row">
+        <div class="form-group">
+          <label class="mx-3"><h4><span style="color: white">Inquiry*</span></h4></label><br>
+          <textarea name="inquiry" class="mx-3 p-1" id="inquiry" cols="110" rows="4"
+                    formControlName="inquiry" placeholder="Your message here...!!!" style="width: 75%">
+          </textarea>
+        </div>
+      </div>
+      <!--error block inquiry-->
+      <div class="row">
+        <div *ngIf="inquiry?.invalid && (inquiry?.dirty || inquiry?.touched)"
+             class="alert alert-danger">
+
+          <div *ngIf="inquiry?.errors.required">
+            Inquiry is required.
+          </div>
+        </div>
+      </div>
+      <button type="submit"  class="btn btn-outline-primary" [disabled]="!inputForm.valid" style="margin-left: 30%">
+        Submit
+      </button>
+    </form>
+  </div>
+</div>
+
